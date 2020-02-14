@@ -28,9 +28,11 @@ url: "https://devreplay.github.io/" # the base hostname & protocol for your site
 show_downloads: false
 google_analytics:
 github_username:  devreplay
+twitter_username: ikuyadeu0513
 
+image: /devreplay.png
 # Build settings
-theme: jekyll-theme-cayman
+theme:
 plugins:
   - jekyll-feed
   - jekyll-sitemap
@@ -55,3 +57,5 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+header_page_refs: ['docs']

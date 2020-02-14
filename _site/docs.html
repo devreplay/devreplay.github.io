@@ -6,17 +6,17 @@
     <meta charset="UTF-8">
 
 <!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>DevReplay | An linter that replay your developing style.</title>
+<title>Docs | DevReplay</title>
 <meta name="generator" content="Jekyll v3.8.5" />
-<meta property="og:title" content="DevReplay" />
+<meta property="og:title" content="Docs" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="An linter that replay your developing style." />
 <meta property="og:description" content="An linter that replay your developing style." />
-<link rel="canonical" href="http://localhost:4000/404.html" />
-<meta property="og:url" content="http://localhost:4000/404.html" />
+<link rel="canonical" href="http://localhost:4000/docs.html" />
+<meta property="og:url" content="http://localhost:4000/docs.html" />
 <meta property="og:site_name" content="DevReplay" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/404.html","description":"An linter that replay your developing style.","headline":"DevReplay","@type":"WebPage","@context":"https://schema.org"}</script>
+{"url":"http://localhost:4000/docs.html","description":"An linter that replay your developing style.","headline":"Docs","@type":"WebPage","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -103,7 +103,7 @@
     
 
     <header class="page-header" role="banner">
-    <h1 class="project-name">DevReplay</h1>
+    <h1 class="project-name">Docs</h1>
     <h2 class="project-tagline">An linter that replay your developing style.</h2>
     <!-- 
       <a href="https://github.com/devreplay/devreplay.github.io" class="btn">View on GitHub</a>
@@ -117,26 +117,93 @@
 </header>
 
     <main id="content" class="main-content" role="main">
-      <style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
+      <article>
 
-<div class="container">
-  <h1>404</h1>
+  <div>
+    <h1 id="user-guide">USER GUIDE</h1>
 
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
-</div>
+<ul>
+  <li><a href="#installation-and-usage">Installation and Usage</a></li>
+  <li><a href="#configuration">Configuration</a></li>
+</ul>
+
+<h2 id="installation-and-usage">Installation and Usage</h2>
+
+<ul>
+  <li><a href="https://marketplace.visualstudio.com/items?itemName=Ikuyadeu.devreplay">Visual Studio Code</a></li>
+  <li><a href="https://github.com/marketplace/dev-replay">GitHub Application</a></li>
+  <li><a href="https://www.npmjs.com/package/devreplay">Npm package</a></li>
+  <li><a href="https://www.npmjs.com/package/devreplay-server">Language Server</a></li>
+</ul>
+
+<p>If you will use on command line interface</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">-g</span> devreplay
+<span class="c"># or</span>
+yarn global add devreplay
+</code></pre></div></div>
+
+<p>Fix the your source file.</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>devreplay <span class="nt">--fix</span> yourfile.py <span class="o">&gt;</span> yourfile.py
+</code></pre></div></div>
+
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gd">- tmp = a
+- a = b
+- b = a
+</span><span class="gi">+ a, b = b, a
+</span></code></pre></div></div>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>You should then make a <code class="language-plaintext highlighter-rouge">devreplay.json</code> file.
+Here is the example.</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"condition"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"$3 = $1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"$1 = $2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"$2 = $3"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"consequent"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"$1, $2 = $2, $1"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Yuki Ueda"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Value exchanging can be one line"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Information"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">condition</code>: Before changed <a href="https://macromates.com/manual/en/snippets">code snippet</a> you can write more concrete like here
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"condition"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="s2">"tmp = a"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"a = b"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"b = tmp"</span><span class="w">
+</span><span class="p">]</span><span class="err">,</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">condition</code>: After changed <a href="https://macromates.com/manual/en/snippets">code snippet</a> you can write more concrete like here
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"condition"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="s2">"a, b = b, a"</span><span class="w">
+</span><span class="p">]</span><span class="err">,</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">author</code>: Creator of rules or source for reliability</li>
+  <li><code class="language-plaintext highlighter-rouge">description</code>: Details of rules importaces (default: <code class="language-plaintext highlighter-rouge">condition</code> should be <code class="language-plaintext highlighter-rouge">consequent</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">severity</code>: How this pattern is important
+    <ul>
+      <li><strong>E</strong>: Error</li>
+      <li><strong>W</strong>: Warning</li>
+      <li><strong>I</strong>: Information</li>
+      <li><strong>H</strong>: Hint</li>
+    </ul>
+  </li>
+</ul>
+
+
+  </div>
+
+</article>
 
       <footer class="site-footer">
   <!-- Github icon -->
