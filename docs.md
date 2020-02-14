@@ -82,3 +82,27 @@ Here is the example.
     * **I**: Information
     * **H**: Hint
 
+
+You can extends your `devreplay.json` from built-in rules and your local rules.
+
+```json
+[
+  {
+      "extends": [
+          "typescript",
+          "React",
+          "/your/local/rules.json"
+      ]
+  },
+  {
+    "condition": [
+      "$3 = $1",
+      "$1 = $2",
+      "$2 = $3"
+    ],
+    "consequent": [
+      "$1, $2 = $2, $1"
+    ]
+  }
+]
+```

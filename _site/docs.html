@@ -180,6 +180,28 @@ Here is the example.</p>
   </li>
 </ul>
 
+<p>You can extends your <code class="language-plaintext highlighter-rouge">devreplay.json</code> from built-in rules and your local rules.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"extends"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="s2">"typescript"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"React"</span><span class="p">,</span><span class="w">
+          </span><span class="s2">"/your/local/rules.json"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"condition"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"$3 = $1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"$1 = $2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"$2 = $3"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"consequent"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"$1, $2 = $2, $1"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
 
   </div>
 
