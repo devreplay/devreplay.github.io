@@ -42,3 +42,4 @@ devreplay --fix yourfile.py > yourfile.py
 - b = a
 + a, b = b, a
 ```
+Check out [the full usage guide](https://devreplay.github.io/docs.html) to learn more.
