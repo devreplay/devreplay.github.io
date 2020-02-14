@@ -58,4 +58,4 @@ plugins:
 #   - vendor/gems/
 #   - vendor/ruby/
 
-header_page_refs: ['docs']
+header_page_refs: ['docs', 'rules', 'update']
