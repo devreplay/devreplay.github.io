@@ -10,19 +10,19 @@
 <meta name="generator" content="Jekyll v3.8.5" />
 <meta property="og:title" content="Docs" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="An linter that replay your developing style." />
-<meta property="og:description" content="An linter that replay your developing style." />
+<meta name="description" content="A linter that replay your developing style." />
+<meta property="og:description" content="A linter that replay your developing style." />
 <link rel="canonical" href="http://localhost:4000/docs.html" />
 <meta property="og:url" content="http://localhost:4000/docs.html" />
 <meta property="og:site_name" content="DevReplay" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/docs.html","description":"An linter that replay your developing style.","headline":"Docs","@type":"WebPage","@context":"https://schema.org"}</script>
+{"url":"http://localhost:4000/docs.html","description":"A linter that replay your developing style.","headline":"Docs","@type":"WebPage","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#157878">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="stylesheet" href="/assets/css/style.css?v=5b9fec7eb2834bf21dab2e5b5e501cc2b5327009">
+    <link rel="stylesheet" href="/assets/css/style.css?v=554e8dff436b69d3c90b223eb63e38159b506f3d">
     <link rel="shortcut icon" type="image/png" href="devreplay.png">
   </head>
   <body>
@@ -86,7 +86,7 @@
 
     <header class="page-header" role="banner">
     <h1 class="project-name">Docs</h1>
-    <h2 class="project-tagline">An linter that replay your developing style.</h2>
+    <h2 class="project-tagline">A linter that replay your developing style.</h2>
     <!-- 
       <a href="https://github.com/devreplay/devreplay.github.io" class="btn">View on GitHub</a>
      -->
@@ -105,6 +105,7 @@
 <ul>
   <li><a href="#installation-and-usage">Installation and Usage</a></li>
   <li><a href="#configuration">Configuration</a></li>
+  <li><a href="#auto-rule-learning">Auto Rule Learning</a></li>
 </ul>
 
 <h2 id="installation-and-usage">Installation and Usage</h2>
@@ -202,6 +203,96 @@ Here is the example.</p>
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre></div></div>
+
+<h2 id="auto-rule-learning">Auto Rule Learning</h2>
+
+<p>Use <a href="https://github.com/devreplay/devreplay-pattern-generator">DevReplay Pattern Generator</a></p>
+
+<h3 id="0-cloning-this-repository">0. Cloning this repository</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone <span class="nt">--recursive</span>  https://github.com/Ikuyadeu/review_pattern_gen.git
+pip3 <span class="nb">install </span>antlr4-python3-runtime unidiff gitpython
+</code></pre></div></div>
+
+<h3 id="1-preparing-config-file">1. Preparing config file</h3>
+
+<p>Making empty <code class="language-plaintext highlighter-rouge">config.json</code> file</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">touch </span>config.json
+</code></pre></div></div>
+
+<p>and edit <code class="language-plaintext highlighter-rouge">config.json</code> file like berrow</p>
+
+<ul>
+  <li>If you try first time, please check bottom example for the <code class="language-plaintext highlighter-rouge">Option</code> setting</li>
+  <li>GitHub token can be generated from https://github.com/settings/tokens)</li>
+</ul>
+
+<p>(If your target <code class="language-plaintext highlighter-rouge">CPP</code> organization name is <code class="language-plaintext highlighter-rouge">mruby</code>)</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"github_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Your github token"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"lang"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CPP"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"learn_from"</span><span class="p">:</span><span class="w"> </span><span class="s2">"master"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"validate_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"master"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"projects"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mruby"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"repo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mruby"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"branch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"master"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"all_change"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"all_author"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"change_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"time_length"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-01-01 00:00:00"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"end"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-01-01 00:00:00"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="detail-of-parameter">Detail of parameter</h3>
+
+<p><code class="language-plaintext highlighter-rouge">?</code>: The parameter is option</p>
+
+<ul>
+  <li>?<code class="language-plaintext highlighter-rouge">github_token</code> (If you will get code review data): Your github token from https://github.com/settings/tokens</li>
+  <li><code class="language-plaintext highlighter-rouge">lang</code>: Your Target Language (Python, Ruby, Java, JavaScript, CPP, PHP)</li>
+  <li><code class="language-plaintext highlighter-rouge">learn_from</code> and <code class="language-plaintext highlighter-rouge">validate_by</code>: Target of learning and validating (pulls or master)</li>
+  <li><code class="language-plaintext highlighter-rouge">projects</code>: Projects that you want to learn
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">owner</code>: Project owner name</li>
+      <li><code class="language-plaintext highlighter-rouge">repo</code>: Project repository name</li>
+      <li>?<code class="language-plaintext highlighter-rouge">branch</code> (default is <code class="language-plaintext highlighter-rouge">master</code>): Project branch name</li>
+    </ul>
+  </li>
+  <li>?<code class="language-plaintext highlighter-rouge">projects_path</code>: If you want to devide projects contents, you can write projects information on the other file</li>
+  <li>?<code class="language-plaintext highlighter-rouge">all_change</code>(default is False): Will you get all commits or not</li>
+  <li>?<code class="language-plaintext highlighter-rouge">change_size</code> (if all_change is false, default is 100):  Number of change that you collect</li>
+  <li>?<code class="language-plaintext highlighter-rouge">time_length</code> (default is all changes):
+    <ul>
+      <li>?<code class="language-plaintext highlighter-rouge">start</code> (If <code class="language-plaintext highlighter-rouge">end</code> is defined, default is 1 years ago):</li>
+      <li>?<code class="language-plaintext highlighter-rouge">end</code> (If <code class="language-plaintext highlighter-rouge">start</code> is defined, default is today):</li>
+    </ul>
+  </li>
+  <li>?<code class="language-plaintext highlighter-rouge">all_author</code>?(default is True): :You will get all authors change or not (True or False)</li>
+  <li>?<code class="language-plaintext highlighter-rouge">authors</code> (if all_author is false): choose target authors’ name and github id
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">git</code>: author git name</li>
+      <li><code class="language-plaintext highlighter-rouge">github</code>: author github id</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="2-collecting-training-data-set">2. Collecting training data set</h3>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">chmod</span> +x make_rules.sh
+sh make_rules.sh
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">make_rules.sh</code> will runnning <code class="language-plaintext highlighter-rouge">collect_changes.py</code> and <code class="language-plaintext highlighter-rouge">test_rules.py</code></p>
+
+<p>Finally change <code class="language-plaintext highlighter-rouge">data/changes/yourproject2.json</code> to <code class="language-plaintext highlighter-rouge">devreplay.json</code></p>
 
   </div>
 

@@ -11,6 +11,7 @@ order: 1
 
 * [Installation and Usage](#installation-and-usage)
 * [Configuration](#configuration)
+* [Auto Rule Learning](#auto-rule-learning)
 
 ## Installation and Usage
 
@@ -106,3 +107,87 @@ You can extends your `devreplay.json` from built-in rules and your local rules.
   }
 ]
 ```
+
+## Auto Rule Learning
+
+Use [DevReplay Pattern Generator](https://github.com/devreplay/devreplay-pattern-generator)
+
+
+### 0. Cloning this repository
+
+```sh
+git clone --recursive  https://github.com/Ikuyadeu/review_pattern_gen.git
+pip3 install antlr4-python3-runtime unidiff gitpython
+```
+
+### 1. Preparing config file
+
+Making empty `config.json` file
+
+```sh
+touch config.json
+```
+
+and edit `config.json` file like berrow
+
+* If you try first time, please check bottom example for the `Option` setting
+* GitHub token can be generated from https://github.com/settings/tokens)
+
+(If your target `CPP` organization name is `mruby`)
+```json
+{
+    "github_token": "Your github token",
+    "lang": "CPP",
+    "learn_from": "master",
+    "validate_by": "master",
+    "projects": [
+        {
+            "owner": "mruby",
+            "repo": "mruby",
+            "branch": "master"
+        }
+    ],
+    "all_change": true,
+    "all_author": false,
+    "change_size": 1000,
+    "time_length": {
+        "start": "2019-01-01 00:00:00",
+        "end": "2020-01-01 00:00:00"
+    }
+}
+```
+
+
+### Detail of parameter
+
+`?`: The parameter is option
+
+* ?`github_token` (If you will get code review data): Your github token from https://github.com/settings/tokens
+* `lang`: Your Target Language (Python, Ruby, Java, JavaScript, CPP, PHP)
+* `learn_from` and `validate_by`: Target of learning and validating (pulls or master)
+* `projects`: Projects that you want to learn
+    * `owner`: Project owner name
+    * `repo`: Project repository name
+    * ?`branch` (default is `master`): Project branch name
+* ?`projects_path`: If you want to devide projects contents, you can write projects information on the other file
+* ?`all_change`(default is False): Will you get all commits or not
+* ?`change_size` (if all_change is false, default is 100):  Number of change that you collect
+* ?`time_length` (default is all changes):
+    * ?`start` (If `end` is defined, default is 1 years ago):
+    * ?`end` (If `start` is defined, default is today):
+* ?`all_author`?(default is True): :You will get all authors change or not (True or False) 
+* ?`authors` (if all_author is false): choose target authors' name and github id
+    * `git`: author git name
+    * `github`: author github id
+
+
+### 2. Collecting training data set
+
+```sh
+chmod +x make_rules.sh
+sh make_rules.sh
+```
+
+`make_rules.sh` will runnning `collect_changes.py` and `test_rules.py`
+
+Finally change `data/changes/yourproject2.json` to `devreplay.json`
