@@ -28,7 +28,7 @@ If you have any experienced rules, please submit a pull request for sharing your
 
 ### [PYTHON](https://github.com/devreplay/devreplay/blob/master/src/rules/python.ts)
 
-* Source: [PEP8](https://www.python.org/dev/peps/pep-0008/])
+* Source: [PEP8](https://www.python.org/dev/peps/pep-0008/)
 
 ### [JAVA](https://github.com/devreplay/devreplay/blob/master/src/rules/java.ts)
 
