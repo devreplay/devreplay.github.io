@@ -116,7 +116,7 @@ Use [DevReplay Pattern Generator](https://github.com/devreplay/devreplay-pattern
 ### 0. Cloning this repository
 
 ```sh
-git clone --recursive  https://github.com/Ikuyadeu/review_pattern_gen.git
+git clone --recursive https://github.com/devreplay/devreplay-pattern-generator.git
 pip3 install antlr4-python3-runtime unidiff gitpython
 ```
 
