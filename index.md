@@ -1,7 +1,7 @@
 ---
 title: DevReplay
 layout: default
-subtitle: An linter based on developer own coding convention.
+subtitle: A linter based on developer own coding convention.
 ---
 
 # Quick start
