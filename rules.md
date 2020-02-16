@@ -54,4 +54,6 @@ If you have any experienced rules, please submit a pull request for sharing your
 
 ### [Android](https://github.com/devreplay/devreplay/blob/master/src/rules/android.ts)
 
+### [TensorFlow](https://github.com/devreplay/devreplay/blob/master/src/rules/tensorflow.ts)
+
 ### [Visual Studio Code](https://github.com/devreplay/devreplay/blob/master/src/rules/vscode.ts)
