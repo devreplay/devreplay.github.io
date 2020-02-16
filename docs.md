@@ -18,6 +18,7 @@ order: 1
 * [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=Ikuyadeu.devreplay)
 * [GitHub Application](https://github.com/marketplace/dev-replay)
 * [Npm package](https://www.npmjs.com/package/devreplay)
+* [Atom (Progress)](https://atom.io/packages/atom-devreplay)
 * [Language Server](https://www.npmjs.com/package/devreplay-server)
 
 If you will use on command line interface
