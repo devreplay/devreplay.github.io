@@ -40,6 +40,8 @@ If you have any experienced rules, please submit a pull request for sharing your
 
 ### [Dart](https://github.com/devreplay/devreplay/blob/master/src/rules/dart.ts)
 
+### [Cobol](https://github.com/devreplay/devreplay/blob/master/src/rules/cobol.ts)
+
 ## API RULES
 
 ### [React](https://github.com/devreplay/devreplay/blob/master/src/rules/react.ts)
