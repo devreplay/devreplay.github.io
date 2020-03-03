@@ -1,0 +1,43 @@
+---
+layout: page
+title: Demo
+tagline: Demo
+permalink: /demo.html
+ref: demo
+order: 2
+---
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+	<link rel="stylesheet" data-name="vs/editor/editor.main" href="{{ base.url | prepend: site.url }}/node_modules/monaco-editor/min/vs/editor/editor.main.css">
+</head>
+<body>
+
+<div id="container" style="width:800px;height:600px;border:1px solid grey"></div>
+<h2>Here is still work in progress...</h2>
+<script>var require = { paths: { 'vs': '{{ base.url | prepend: site.url }}/node_modules/monaco-editor/min/vs' } };</script>
+<script src="{{ base.url | prepend: site.url }}/node_modules/monaco-editor/min/vs/loader.js"></script>
+<script src="{{ base.url | prepend: site.url }}/node_modules/monaco-editor/min/vs/editor/editor.main.nls.js"></script>
+<script src="{{ base.url | prepend: site.url }}/node_modules/monaco-editor/min/vs/editor/editor.main.js"></script>
+<script>
+	var editor = monaco.editor.create(document.getElementById('container'), {
+		value: [
+'ary = list([1, 2, 3])',
+'if not sum(ary):',
+'    print("Hello World!")',
+'',
+'a = 1',
+'b = 2',
+'',
+'tmp = a',
+'a = b',
+'b = tmp'
+		].join('\n'),
+		language: 'python'
+	});
+</script>
+</body>
+</html>

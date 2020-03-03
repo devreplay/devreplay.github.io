@@ -46,6 +46,7 @@ plugins:
 # Excluded items can be processed by explicitly listing the directories or
 # their entries' file path in the `include:` list.
 #
+exclude: []
 # exclude:
 #   - .sass-cache/
 #   - .jekyll-cache/
@@ -58,4 +59,4 @@ plugins:
 #   - vendor/gems/
 #   - vendor/ruby/
 
-header_page_refs: ['docs', 'rules', 'updates']
+header_page_refs: ['docs', 'demo', 'rules', 'updates']

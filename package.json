@@ -1,0 +1,24 @@
+{
+  "name": "devreplay.github.io",
+  "version": "1.0.0",
+  "description": "The DevReplay pages",
+  "main": "index.js",
+  "dependencies": {
+    "monaco-editor": "^0.20.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devreplay/devreplay.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devreplay/devreplay.github.io/issues"
+  },
+  "homepage": "https://github.com/devreplay/devreplay.github.io#readme"
+}

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://localhost:4000/demo.html</loc>
+</url>
+<url>
 <loc>http://localhost:4000/docs.html</loc>
 </url>
 <url>
@@ -11,6 +14,12 @@
 </url>
 <url>
 <loc>http://localhost:4000/updates.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/node_modules/monaco-editor/CHANGELOG.html</loc>
+</url>
+<url>
+<loc>http://localhost:4000/node_modules/monaco-editor/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/googlec2432440dfb0dc1a.html</loc>

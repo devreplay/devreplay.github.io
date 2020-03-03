@@ -4,7 +4,7 @@ title: Rules
 tagline: Rule
 permalink: /rules.html
 ref: rules
-order: 2
+order: 3
 ---
 
 # Rules 
@@ -40,6 +40,8 @@ If you have any experienced rules, please submit a pull request for sharing your
 
 ### [Dart](https://github.com/devreplay/devreplay/blob/master/src/rules/dart.ts)
 
+### [PHP](https://github.com/devreplay/devreplay/blob/master/src/rules/php.ts)
+
 ### [Cobol](https://github.com/devreplay/devreplay/blob/master/src/rules/cobol.ts)
 
 ## API RULES
@@ -59,3 +61,7 @@ If you have any experienced rules, please submit a pull request for sharing your
 ### [TensorFlow](https://github.com/devreplay/devreplay/blob/master/src/rules/tensorflow.ts)
 
 ### [Visual Studio Code](https://github.com/devreplay/devreplay/blob/master/src/rules/vscode.ts)
+
+### [Chainer to PyTouch](https://github.com/devreplay/devreplay/blob/master/src/rules/chainer2pytouch.ts)
+
+* Source: [Framework Migration guide](https://chainer.github.io/migration-guide/)
