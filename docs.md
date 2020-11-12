@@ -18,7 +18,6 @@ order: 1
 * [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=Ikuyadeu.devreplay)
 * [GitHub Application](https://github.com/marketplace/dev-replay)
 * [Npm package](https://www.npmjs.com/package/devreplay)
-* [Atom (Progress)](https://atom.io/packages/atom-devreplay)
 * [Language Server](https://www.npmjs.com/package/devreplay-server)
 
 If you will use on command line interface
@@ -48,36 +47,36 @@ Here is the example.
 ```json
 [
   {
-    "condition": [
+    "before": [
       "$3 = $1",
       "$1 = $2",
       "$2 = $3"
     ],
-    "consequent": [
+    "after": [
       "$1, $2 = $2, $1"
     ],
     "author": "Yuki Ueda",
-    "description": "Value exchanging can be one line",
+    "message": "Value exchanging can be one line",
     "severity": "Information"
   }
 ]
 ```
-* `condition`: Before changed [code snippet](https://macromates.com/manual/en/snippets) you can write more concrete like here
+* `before`: Before changed [code snippet](https://macromates.com/manual/en/snippets) you can write more concrete like here
 ```json
-"condition": [
+"before": [
     "tmp = a",
     "a = b",
     "b = tmp"
 ],
 ```
-* `condition`: After changed [code snippet](https://macromates.com/manual/en/snippets) you can write more concrete like here
+* `before`: After changed [code snippet](https://macromates.com/manual/en/snippets) you can write more concrete like here
 ```json
-"condition": [
+"before": [
     "a, b = b, a"
 ],
 ```
 * `author`: Creator of rules or source for reliability
-* `description`: Details of rules importaces (default: `condition` should be `consequent`)
+* `message`: Details of rules importaces (default: `before` should be `after`)
 * `severity`: How this pattern is important
     * **E**: Error
     * **W**: Warning
@@ -97,12 +96,12 @@ You can extends your `devreplay.json` from built-in rules and your local rules.
       ]
   },
   {
-    "condition": [
+    "before": [
       "$3 = $1",
       "$1 = $2",
       "$2 = $3"
     ],
-    "consequent": [
+    "after": [
       "$1, $2 = $2, $1"
     ]
   }
@@ -111,7 +110,12 @@ You can extends your `devreplay.json` from built-in rules and your local rules.
 
 ## Auto Rule Learning
 
-Use [DevReplay Pattern Generator](https://github.com/devreplay/devreplay-pattern-generator)
+On the git repository following command generate recent changes rule
+
+```sh
+devreplay --init
+```
+
 
 
 ### 0. Cloning this repository

@@ -19,12 +19,12 @@ Here is the example.
 ```json
 [
     {
-        "condition": [
+        "before": [
             "tmp = $1",
             "$1 = $2",
             "$2 = tmp"
         ],
-        "consequent": [
+        "after": [
             "$1, $2 = $2, $1"
         ]
     }
