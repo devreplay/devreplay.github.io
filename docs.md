@@ -117,7 +117,7 @@ devreplay --init
 ```
 
 
-
+<!-- 
 ### 0. Cloning this repository
 
 ```sh
@@ -195,4 +195,4 @@ sh make_rules.sh
 
 `make_rules.sh` will runnning `collect_changes.py` and `test_rules.py`
 
-Finally change `data/changes/yourproject2.json` to `devreplay.json`
+Finally change `data/changes/yourproject2.json` to `devreplay.json` -->
