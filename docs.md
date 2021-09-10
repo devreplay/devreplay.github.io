@@ -7,30 +7,52 @@ ref: docs
 order: 1
 ---
 
-# USER GUIDE
-
-* [Installation and Usage](#installation-and-usage)
-* [Configuration](#configuration)
-
-## Installation and Usage
+Devreplay is static analysis tool based on your own programming rule.
 
 * [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=Ikuyadeu.devreplay)
-* [Npm package](https://www.npmjs.com/package/devreplay)
-* [Language Server](https://www.npmjs.com/package/devreplay-server)
+* [Other Editor Support (Language Server)](https://www.npmjs.com/package/devreplay-server)
 
-If you will use on command line interface
+## How to use
+
+1. Install on local
 
 ```sh
-npm install -g devreplay
+$ npm install devreplay
 # or
-yarn global add devreplay
+$ yarn global add devreplay
 ```
 
-Fix the your source file.
+2. Put your own programming rule(`.devreplay.json`) on the project like bellow
+
+```json
+[
+  {
+    "before": [
+      "(?<tmp>.+)\\s*=\\s*(?<a>.+)",
+      "\\k<a>\\s*=\\s*(?<b>.+)",
+      "\\k<b>\\s*=\\s*\\k<tmp>"
+    ],
+    "after": [
+      "$2, $3 = $3, $2"
+    ],
+    "isRegex": true
+  }
+]
+```
+
+3. Run the devreplay
+
+```sh
+devreplay yourfile.py
+```
+
+or get fixed code
 
 ```sh
 devreplay --fix yourfile.py > yourfile.py
 ```
+
+The target source code file will be
 
 ```diff
 - tmp = a
@@ -39,10 +61,7 @@ devreplay --fix yourfile.py > yourfile.py
 + a, b = b, a
 ```
 
-## Configuration
-
-You should then make a `devreplay.json` file.
-Here is the example.
+* **Step up**: Make the rule message and severity. Also `after` can be more abstract
 
 ```json
 [
@@ -52,132 +71,95 @@ Here is the example.
       "\\k<a>\\s*=\\s*(?<b>.+)",
       "\\k<b>\\s*=\\s*\\k<tmp>"
     ],
-    "after": "$2, $3 = $3, $2",
+    "after": [
+      "$2, $3 = $3, $2"
+    ],
     "isRegex": true,
     "author": "Yuki Ueda",
     "message": "Value exchanging can be one line",
-    "severity": "Information"
+    "severity": "info"
   }
 ]
 ```
 
-* `before`: Before changed [code snippet](https://macromates.com/manual/en/snippets) you can write more concrete like here
+* `severity` means how this rule is important
+  * `error`
+  * `warning`
+  * `info`
+  * `hint`
 
-```json
-"before": [
-  "(?<tmp>.+)\\s*=\\s*(?<a>.+)",
-  "\\k<a>\\s*=\\s*(?<b>.+)",
-  "\\k<b>\\s*=\\s*\\k<tmp>"
-],
+* Run devreplay again
+
+```sh
+$ devreplay yourfile.py
+./yourfile.py
+  15:1  warning  Value exchanging can be one line  0
 ```
 
-* `before`: After changed [code snippet](https://macromates.com/manual/en/snippets) you can write more concrete like here
-
-```json
-"after": "$2, $3 = $3, $2"
-```
-
-* `author`: Creator of rules or source for reliability
-* `message`: Details of rules importaces (default: `before` should be `after`)
-* `severity`: How this pattern is important
-  * **error**
-  * **warning**
-  * **info**
-  * **hint**
-
-You can extends your `devreplay.json` from built-in rules and your local rules.
+Also, you can use default rules by extends some rules such as
 
 ```json
 [
-  "python",
-  {
-    "before": [
-      "(?<tmp>.+)\\s*=\\s*(?<a>.+)",
-      "\\k<a>\\s*=\\s*(?<b>.+)",
-      "\\k<b>\\s*=\\s*\\k<tmp>"
-    ],
-    "after": ["$2, $3 = $3, $2"],
-    "isRegex": true
-  }
+  "python"
 ]
 ```
 
-<!-- 
-### 0. Cloning this repository
+### Make rules by using Regular Expression
 
-```sh
-git clone --recursive https://github.com/devreplay/devreplay-pattern-generator.git
-pip3 install antlr4-python3-runtime unidiff gitpython
-```
-
-### 1. Preparing config file
-
-Making empty `config.json` file
-
-```sh
-touch config.json
-```
-
-and edit `config.json` file like berrow
-
-* If you try first time, please check bottom example for the `Option` setting
-* GitHub token can be generated from https://github.com/settings/tokens)
-
-(If your target `CPP` organization name is `mruby`)
 ```json
 {
-    "github_token": "Your github token",
-    "lang": "CPP",
-    "learn_from": "master",
-    "validate_by": "master",
-    "projects": [
-        {
-            "owner": "mruby",
-            "repo": "mruby",
-            "branch": "master"
-        }
-    ],
-    "all_change": true,
-    "all_author": false,
-    "change_size": 1000,
-    "time_length": {
-        "start": "2019-01-01 00:00:00",
-        "end": "2020-01-01 00:00:00"
-    }
+  "before": [
+    "([a-z]+)-([a-z]+)"
+  ],
+  "after": [
+      "$1 $2"
+  ],
+  "isRegex": true
 }
 ```
 
+That will fix
 
-### Detail of parameter
-
-`?`: The parameter is option
-
-* ?`github_token` (If you will get code review data): Your github token from https://github.com/settings/tokens
-* `lang`: Your Target Language (Python, Ruby, Java, JavaScript, CPP, PHP)
-* `learn_from` and `validate_by`: Target of learning and validating (pulls or master)
-* `projects`: Projects that you want to learn
-    * `owner`: Project owner name
-    * `repo`: Project repository name
-    * ?`branch` (default is `master`): Project branch name
-* ?`projects_path`: If you want to devide projects contents, you can write projects information on the other file
-* ?`all_change`(default is False): Will you get all commits or not
-* ?`change_size` (if all_change is false, default is 100):  Number of change that you collect
-* ?`time_length` (default is all changes):
-    * ?`start` (If `end` is defined, default is 1 years ago):
-    * ?`end` (If `start` is defined, default is today):
-* ?`all_author`?(default is True): :You will get all authors change or not (True or False) 
-* ?`authors` (if all_author is false): choose target authors' name and github id
-    * `git`: author git name
-    * `github`: author github id
-
-
-### 2. Collecting training data set
-
-```sh
-chmod +x make_rules.sh
-sh make_rules.sh
+```diff
+- print("hello-world")
++ print("hello world")
 ```
 
-`make_rules.sh` will runnning `collect_changes.py` and `test_rules.py`
+### Support Languages and Frameworks
 
-Finally change `data/changes/yourproject2.json` to `devreplay.json` -->
+| Languages  | Frameworks      |
+|------------|-----------------|
+| C          | Android         |
+| CPP        | Angular         |
+| Cobol      | chainer2pytouch |
+| Dart       | Rails           |
+| Java       | React           |
+| JavaScript | TensorFlow      |
+| PHP        |                 |
+| Python     |                 |
+| Ruby       |                 |
+| TypeScript |                 |
+| VS Code    |                 |
+| Vue        |                 |
+
+### GitHub Actions
+
+Please copy following `.github/workflows/devreplay.yml` file to your repository.
+
+```yml
+name: Devreplay
+on: [push, pull_request]
+jobs:
+  devreplay:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+      - run: npm install -g devreplay
+      - name: Run devreplay
+        run: devreplay ./ .devreplay.json
+```
+
+## [Contribution Link](https://github.com/devreplay/devreplay/blob/master/CONTRIBUTING.md)

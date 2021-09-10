@@ -14,24 +14,25 @@ npm install -g devreplay
 yarn global add devreplay
 ```
 
-You should then make a `devreplay.json` file.
+You should then make a `.devreplay.json` file.
 Here is the example.
+
 ```json
 [
-    {
-        "before": [
-            "tmp = $1",
-            "$1 = $2",
-            "$2 = tmp"
-        ],
-        "after": [
-            "$1, $2 = $2, $1"
-        ]
-    }
+  {
+    "before": [
+      "(?<tmp>.+)\\s*=\\s*(?<a>.+)",
+      "\\k<a>\\s*=\\s*(?<b>.+)",
+      "\\k<b>\\s*=\\s*\\k<tmp>"
+    ],
+    "after": ["$2, $3 = $3, $2"],
+    "isRegex": true
+  }
 ]
 ```
 
 Fix the your source file.
+
 ```sh
 devreplay --fix yourfile.py > yourfile.py
 ```
@@ -42,4 +43,5 @@ devreplay --fix yourfile.py > yourfile.py
 - b = a
 + a, b = b, a
 ```
-Check out [the full usage guide](https://devreplay.github.io/docs.html) to learn more.
+
+Check out [the full usage guide](https://github.com/devreplay/devreplay/blob/master/README.md) to learn more.
