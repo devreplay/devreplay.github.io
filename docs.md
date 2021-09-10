@@ -11,12 +11,10 @@ order: 1
 
 * [Installation and Usage](#installation-and-usage)
 * [Configuration](#configuration)
-* [Auto Rule Learning](#auto-rule-learning)
 
 ## Installation and Usage
 
 * [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=Ikuyadeu.devreplay)
-* [GitHub Application](https://github.com/marketplace/dev-replay)
 * [Npm package](https://www.npmjs.com/package/devreplay)
 * [Language Server](https://www.npmjs.com/package/devreplay-server)
 
@@ -29,6 +27,7 @@ yarn global add devreplay
 ```
 
 Fix the your source file.
+
 ```sh
 devreplay --fix yourfile.py > yourfile.py
 ```
@@ -44,78 +43,64 @@ devreplay --fix yourfile.py > yourfile.py
 
 You should then make a `devreplay.json` file.
 Here is the example.
+
 ```json
 [
   {
     "before": [
-      "$3 = $1",
-      "$1 = $2",
-      "$2 = $3"
+      "(?<tmp>.+)\\s*=\\s*(?<a>.+)",
+      "\\k<a>\\s*=\\s*(?<b>.+)",
+      "\\k<b>\\s*=\\s*\\k<tmp>"
     ],
-    "after": [
-      "$1, $2 = $2, $1"
-    ],
+    "after": "$2, $3 = $3, $2",
+    "isRegex": true,
     "author": "Yuki Ueda",
     "message": "Value exchanging can be one line",
     "severity": "Information"
   }
 ]
 ```
+
 * `before`: Before changed [code snippet](https://macromates.com/manual/en/snippets) you can write more concrete like here
+
 ```json
 "before": [
-    "tmp = a",
-    "a = b",
-    "b = tmp"
+  "(?<tmp>.+)\\s*=\\s*(?<a>.+)",
+  "\\k<a>\\s*=\\s*(?<b>.+)",
+  "\\k<b>\\s*=\\s*\\k<tmp>"
 ],
 ```
+
 * `before`: After changed [code snippet](https://macromates.com/manual/en/snippets) you can write more concrete like here
+
 ```json
-"before": [
-    "a, b = b, a"
-],
+"after": "$2, $3 = $3, $2"
 ```
+
 * `author`: Creator of rules or source for reliability
 * `message`: Details of rules importaces (default: `before` should be `after`)
 * `severity`: How this pattern is important
-    * **E**: Error
-    * **W**: Warning
-    * **I**: Information
-    * **H**: Hint
-
+  * **error**
+  * **warning**
+  * **info**
+  * **hint**
 
 You can extends your `devreplay.json` from built-in rules and your local rules.
 
 ```json
 [
-  {
-      "extends": [
-          "typescript",
-          "React",
-          "/your/local/rules.json"
-      ]
-  },
+  "python",
   {
     "before": [
-      "$3 = $1",
-      "$1 = $2",
-      "$2 = $3"
+      "(?<tmp>.+)\\s*=\\s*(?<a>.+)",
+      "\\k<a>\\s*=\\s*(?<b>.+)",
+      "\\k<b>\\s*=\\s*\\k<tmp>"
     ],
-    "after": [
-      "$1, $2 = $2, $1"
-    ]
+    "after": ["$2, $3 = $3, $2"],
+    "isRegex": true
   }
 ]
 ```
-
-## Auto Rule Learning
-
-On the git repository following command generate recent changes rule
-
-```sh
-devreplay --init
-```
-
 
 <!-- 
 ### 0. Cloning this repository
